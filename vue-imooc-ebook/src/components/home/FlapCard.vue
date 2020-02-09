@@ -66,6 +66,7 @@ export default {
         }
     },
     methods: {
+        // 运行动画，最后2.5秒后显示图书推荐动画
         runAnimation () {
             this.runFlapCardAnimation = true
             this.timeout = setTimeout(() => {
@@ -88,6 +89,7 @@ export default {
                 backgroundImage: dir === 'left' ? item.imgLeft : item.imgRight
             }
         },
+        // 转动函数
         rotate (index, type) {
             const item = this.flapCardList[index]
             let dom
@@ -138,9 +140,15 @@ export default {
                 this.back = 0
             }
             // 循环改变zIndex值
+            // 100->96
+            // 99->100
+            // 98->99
+            // 97->98
+            // 96->97
             this.flapCardList.forEach((item, index) => {
                 item.zIndex = 100 - ((index - this.front + len) % len)
             })
+            // 每次移动完要做准备操作
             this.prepare()
         },
         // 让背面卡片左边半圆和右边半圆重叠
@@ -150,13 +158,14 @@ export default {
             backFlapCard._g = backFlapCard.g - 5 * 9
             this.rotate(this.back, 'back')
         },
+        // 创建翻转卡片的动画，定时任务
         startFlapCardAnimation () {
             this.prepare()
             this.task = setInterval(() => {
                 this.flagCardRotate()
             }, this.intervalTime)
         },
-        // 小球控制函数
+        // 小球控制函数，并通过异步的方法将标志位取消，去除中心原点
         startPointAnimation () {
             this.runPointAnimation = true
             setTimeout(() => {

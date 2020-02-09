@@ -51,14 +51,14 @@ export default {
       if (!this.bookAvailable || this.menueVisible || this.settingVisibke >= 0) {
         return
       }
-      // 未达到临界状态
+      // 状态2 未达到临界状态,标签相对运动，显得静止
       if (v >= this.height && v <= this.threshold) {
         this.beforeThreshould(v)
       } else if (v >= this.threshold) {
-        // 超越临界状态
+        // 状态3 超越临界状态
         this.afterThreshould(v)
       } else if (v > 0 && v < this.height) {
-        // 状态1
+        // 状态1 归位操作
         this.beforeHight(v)
       } else if (v === 0) {
         this.restore()
@@ -75,6 +75,7 @@ export default {
     }
   },
   methods: {
+    // 获取书签组件对应的内容
     addBookmark () {
       this.bookmark = getBookmark(this.fileName)
       if (!this.bookmark) {
@@ -95,6 +96,7 @@ export default {
       })
       console.log(cfirange)
     },
+    // 删除书签
     removeBookmark () {
      const currentLocation = this.currentBook.rendition.currentLocation()
      const cfi = currentLocation.start.cfi
@@ -130,6 +132,7 @@ export default {
         this.isFixed = false
       }
     },
+    // 状态2方法
     beforeThreshould (v) {
       this.$refs.bookmark.style.top = `${-v}px`
       if (this.isBookmark) {
@@ -144,6 +147,7 @@ export default {
         iconDown.style.transform = 'rotate(0deg)'
       }
     },
+    // 状态3方法
     afterThreshould (v) {
       this.$refs.bookmark.style.top = `${-v}px`
         if (this.isBookmark) {

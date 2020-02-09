@@ -2,7 +2,7 @@ const book = {
   state: {
     fileName: '',
     menuVisible: false,
-    settingVisible: -1,
+    settingVisible: -1, // -1不显示，0字号，1主题，2进度，3目录
     defaultFontSize: 16,
     defaultFontFamily: 'Default',
     fontFamilyVisible: false,

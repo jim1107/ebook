@@ -76,6 +76,7 @@ export default {
         }
     },
     methods: {
+        // 渲染点击页
         displaySearch (target, highlight = false) {
             this.display(target, () => {
                 this.hideTitleAndMenu()
@@ -84,6 +85,7 @@ export default {
                 }
             })
         },
+        // 搜索绑定事件+关键字高亮显示
         search () {
             if (this.searchText && this.searchText.length > 0) {
                 this.doSearch(this.searchText).then(list => {
@@ -96,12 +98,14 @@ export default {
             })
           }
         },
+        // 全文搜索算法
         doSearch (q) {
         return Promise.all(
         this.currentBook.spine.spineItems.map(section => section.load(this.currentBook.load.bind(this.currentBook))
         .then(section.find.bind(section, q)).finally(section.unload.bind(section)))
         ).then(results => Promise.resolve([].concat.apply([], results)))
         },
+        // 调用渲染展示方法，渲染挖成再隐藏菜单
         displayNavigation (target) {
             this.display(target, () => {
                 this.hideTitleAndMenu()

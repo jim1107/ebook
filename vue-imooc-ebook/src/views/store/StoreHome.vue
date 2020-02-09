@@ -56,6 +56,7 @@ export default {
         }
     },
     methods: {
+        // 滚动动画后传入的滚动条top参数变化和refresh
         onScroll (offsetY) {
             this.setOffsetY(offsetY)
             if (offsetY > 0) {

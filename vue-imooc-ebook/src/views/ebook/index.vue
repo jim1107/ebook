@@ -28,6 +28,7 @@ export default {
         EbookHeader,
         EbookFooter
     },
+    // 监听设置的Y位移变化，标题菜单出现就不下拉，bookAvailable目录加载完成
     watch: {
         offsetY (v) {
             if (!this.menuVisible && this.bookAvailable) {
@@ -40,6 +41,7 @@ export default {
         }
     },
     methods: {
+        // 松手时还原界面
         restore () {
             this.$refs.ebook.style.top = 0
             this.$refs.ebook.style.transition = 'all .2s linear'
@@ -50,6 +52,7 @@ export default {
         move (v) {
             this.$refs.ebook.style.top = v + 'px'
         },
+        // 记录阅读时间
         startLoopReadTime () {
             let readTime = getReadTime(this.fileName)
             if (!readTime) {
@@ -66,6 +69,7 @@ export default {
     mounted () {
         this.startLoopReadTime()
     },
+    // 销毁前
     beforeDestroy () {
         if (this.task) {
             clearInterval(this.task)

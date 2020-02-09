@@ -25,7 +25,7 @@ const routes = [
     redirect: '/store/home',
     children: [
       {
-        path: 'home', // 不能加斜杆，相对路径
+        path: 'home', // 不能加斜杆，表示相对路径
         component: () => import('../views/store/StoreHome.vue')
       },
       {

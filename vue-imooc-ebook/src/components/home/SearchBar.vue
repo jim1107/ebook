@@ -107,6 +107,7 @@ export default {
             this.hotSearchVisible = true
             this.hideTitle()
             this.hideShadow()
+            // hotSearch显示以后再进行重置
             this.$nextTick(() => {
                 this.$refs.hotSearch.reset()
             })
@@ -181,7 +182,7 @@ export default {
             height: px2rem(52);
             padding: px2rem(10);
             box-sizing: border-box;
-            transition: top $animationTime $animationType;
+            transition: top $animationTime $animationType; // 动画监听top变化
             &.hide-title{
                 top:0;
             }
@@ -215,10 +216,10 @@ export default {
                     font-size: px2rem(12);
                     color: #666;
                     &:focus {
-                        outline:none;
+                        outline:none; // 取消选中之后的边框
                     }
                     &::-webkit-input-placeholder {
-                        color: #ccc;
+                        color: #ccc; // 提示文字的颜色
                     }
                 }
             }

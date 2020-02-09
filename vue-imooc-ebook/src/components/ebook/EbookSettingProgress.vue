@@ -63,9 +63,11 @@ export default {
           const cfi = this.currentBook.locations.cfiFromPercentage(this.progress / 100)
           this.display(cfi)
         },
+        // 更改进度条两边颜色
         updateProgressBg () {
-          this.$refs.progress.style.backgroundSize = `${this.progress}% 100%`
+          this.$refs.progress.style.backgroundSize = `${this.progress}% 100% !important`
         },
+        // 上一章
         prevSection () {
           if (this.section > 0 && this.bookAvailable) {
             this.setSection(this.section - 1).then(() => {
@@ -73,6 +75,7 @@ export default {
             })
           }
         },
+        // 下一章，spine表示总共有13个章节
         nextSection () {
           if (this.section < this.currentBook.spine.length - 1 && this.bookAvailable) {
             this.setSection(this.section + 1).then(() => {
@@ -80,6 +83,7 @@ export default {
               })
           }
         },
+        // 显示对应章节
       displaySection () {
         const sectionInfo = this.currentBook.section(this.section)
         if (sectionInfo && sectionInfo.href) {

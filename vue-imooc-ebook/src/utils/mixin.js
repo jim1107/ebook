@@ -1,7 +1,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { themeList, addCss, removeAllCss, getReadTimeByMinute } from './book'
 import { saveLocation, getBookmark } from './localStorage'
-
+// 组件复用
 export const ebookMixin = {
   computed: {
     ...mapGetters([
@@ -54,6 +54,7 @@ export const ebookMixin = {
       'setOffsetY',
       'setIsBookmark'
     ]),
+    // 动态切换主题CSS样式
     initGlobalStyle () {
       removeAllCss()
       switch (this.defaultTheme) {
@@ -61,7 +62,7 @@ export const ebookMixin = {
             addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_default.css`)
             break
           case 'Eye' :
-            console.log(process.env.VUE_APP_RES_URL)
+            // console.log(process.env.VUE_APP_RES_URL)
             addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_eye.css`)
             break
           case 'Night' :
@@ -75,6 +76,7 @@ export const ebookMixin = {
             break
         }
     },
+    // 刷新当前位置，获取进度变化
     refreshLocation () {
       const currentLocation = this.currentBook.rendition.currentLocation()
       if (currentLocation && currentLocation.start) {
@@ -85,8 +87,9 @@ export const ebookMixin = {
         // local storage
         this.setSection(currentLocation.start.index)
         saveLocation(this.fileName, startCfi)
+        // 判断当前页是否是书签，some方法
         const bookmark = getBookmark(this.fileName)
-        console.log(bookmark)
+        // console.log(bookmark)
         if (bookmark) {
           if (bookmark.some(item => item.cfi === startCfi)) {
             this.setIsBookmark(true)
@@ -109,6 +112,7 @@ export const ebookMixin = {
         }
       }
     },
+    // 通用显示的方法，回调
     display (target, cb) {
       if (target) {
           this.currentBook.rendition.display(target).then(() => {
@@ -122,11 +126,12 @@ export const ebookMixin = {
           })
       }
   },
+  // 隐藏菜单和标题
   hideTitleAndMenu () {
     // this.$store.dispatch('setMenuVisible', false)
     this.setMenuVisible(false)
     this.setSettingVisible(-1)
-    this.setFontFamilyVisible(false)
+    this.setFontFamilyVisible(false) // 字体样式设置
   },
   getReasTimeText () {
     return this.$t('book.haveRead').replace('$1', getReadTimeByMinute(this.fileName))

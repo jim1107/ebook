@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+// 调用home接口
 export function home () {
     return axios({
         method: 'get',

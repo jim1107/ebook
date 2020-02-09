@@ -105,6 +105,7 @@ export function getCategoryName (id) {
   }
 }
 
+// 传入id获取两个值
 export const categoryList = {
   'ComputerScience': 1,
   'SocialSciences': 2,
@@ -130,6 +131,7 @@ export const categoryList = {
   'Statistics': 22
 }
 
+// 国际化文本
 export function categoryText (category, vue) {
   switch (category) {
     case 1:
